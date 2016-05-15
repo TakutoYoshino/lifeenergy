@@ -1,0 +1,436 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>LifeEnergy | moment</title>
+	<meta name="description" content="LifeEnergy(ライフエナジー)は、あなたの寿命をエネルギーとして視覚化し、命の有限性を意識するちょっとしたきっかけになるインタラクティブコンテンツです。">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<meta property="og:title" content="LifeEnergy | moment"/>
+	<meta property="og:description" content="LifeEnergy(ライフエナジー)は、あなたの寿命をエネルギーとして視覚化し、命の有限性を意識するちょっとしたきっかけになるインタラクティブコンテンツです。"/>
+	<meta property="og:image" content="http://mymoment.jp/images/img_facebook_thumbnail_le.png"/>
+	<meta property="og:url" content="http://mymoment.jp/lifeenergy/"/>
+	<meta property="og:type" content="website"/>
+	<meta property="og:site_name" content="LifeEnergy | moment"/>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+		<!--
+/**
+ * @license
+ * MyFonts Webfont Build ID 3077725, 2015-08-18T23:39:51-0400
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: DidotLTStd-Roman by Linotype
+ * URL: http://www.myfonts.com/fonts/linotype/didot/std-roman/
+ * 
+ * Webfont: DidotLTStd-Bold by Linotype
+ * URL: http://www.myfonts.com/fonts/linotype/didot/lt-std-bold/
+ * 
+ * 
+ * License: http://www.myfonts.com/viewlicense?type=web&buildid=3077725
+ * Licensed pageviews: 250,000
+ * Webfonts copyright: Copyright &#x00A9; 1992, 2002 Adobe Systems Incorporated.  All
+ * Rights Reserved. &#x00A9; 1981, 2002 Heidelberger Druckmaschinen AG. All rights
+ * reserved.
+ * 
+ * © 2015 MyFonts Inc
+*/
+
+-->
+<link rel="stylesheet" type="text/css" href="css/MyFontsWebfontsKit.css">
+<link rel="apple-touch-icon" sizes="57x57" href="favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="favicons/manifest.json">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-TileImage" content="favicons/mstile-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="js/build/three.min.js"></script>
+<script type="text/javascript" src="js/Detector.js"></script>
+<script type="text/javascript" src="js/libs/tween.min.js"></script>
+<script src="js/Sparks.js"></script>
+<script src="js/shaders/CopyShader.js"></script>
+<script src="js/shaders/FilmShader.js"></script>
+<script src="js/shaders/FocusShader.js"></script>
+<script src="js/shaders/HorizontalBlurShader.js"></script>
+<script src="js/shaders/TriangleBlurShader.js"></script>
+<script src="js/shaders/VerticalBlurShader.js"></script>
+<script src="js/postprocessing/EffectComposer.js"></script>
+<script src="js/postprocessing/RenderPass.js"></script>
+<script src="js/postprocessing/ShaderPass.js"></script>
+<script src="js/postprocessing/MaskPass.js"></script>
+<script src="js/postprocessing/BloomPass.js"></script>
+<script src="js/postprocessing/FilmPass.js"></script>
+<script type="text/javascript" src="js/controls/TrackballControls.js"></script>
+<script type="text/javascript" src="js/controls/OrbitControls.js"></script>
+<script type="text/javascript" src="js/SkyShader.js"></script>
+<script type="text/javascript" src="js/Projector.js"></script>
+<script type="text/javascript" src="js/CanvasRenderer.js"></script>
+
+
+<script type="x-shader/x-vertex" id="vertexshader">
+
+	attribute float size;
+	attribute vec3 pcolor;
+
+	varying vec3 vColor;
+
+	void main() {
+
+		vColor = pcolor;
+
+		vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+
+		gl_PointSize = size * ( 200.0 / length( mvPosition.xyz ) );
+
+		gl_Position = projectionMatrix * mvPosition;
+
+	}
+
+</script>
+
+<script type="x-shader/x-fragment" id="fragmentshader">
+
+	uniform sampler2D texture;
+
+	varying vec3 vColor;
+
+	void main() {
+
+		vec4 outColor = texture2D( texture, gl_PointCoord );
+
+		gl_FragColor = outColor * vec4( vColor, 1.0 );
+
+	}
+
+</script>
+<script type="text/javascript" src="js/script.js"></script>
+</head>
+
+<body>
+	<div id="container-all">
+
+		<!--スマホ用-->
+		<div id="sp-area">
+			<div class="sp-message">
+				<p class="sp-text">Thank you for coming.<br> Life Energy uses WebGL and doesn't support Smart Phone and Tablet devices. Please use your PC browser of the latest Firefox and Chrome.</p>
+				<p>ご覧いただきありがとうございます。当サイトは現在スマートフォンおよびタブレット端末には対応しておりません。PCブラウザよりご覧いただけますと幸いです（推奨ブラウザはFirefox、あるいはChromeです）</p>
+			</div>
+		</div>
+
+		<!--IE用-->
+		<div id="ie">
+			<div class="ie-message">
+			<p class="ie-text">Thank you for coming.<br>Life Energy requires WebGL.<br> Please use your browser of the latest Firefox or Chrome.</p>
+			<p>ご覧いただきありがとうございます。<br>当サイトはWebGLを使用しているためIEには対応しておりません。<br>Firefox、またはChromeでご覧いただけると幸いです。</p>
+			</div>
+		</div>
+
+		<!--header-->
+		<header id="header">
+			<div class="logo">
+				<h1><img src="images/le_logo.png" width="297" height="24" alt="LifeEnergy | Mymoment"/></h1>
+			</div>
+			<div class="remain-area">
+				<div class="remain">
+					<h2>remaining LE in your life.</h2>
+				</div>
+				<div class="meter clearfix">
+					<p class="meter1">0000</p>
+					<p class="meter2">/0000</p>
+				</div>
+				<div class="metergage"><div class="metergage-in"></div></div>
+			</div>
+			<div class="tdremain">
+				<p>Today, your life energy remains ... <span class="tdnum"></span><span class="tdper">%</span></p>
+			</div>
+		</header>
+
+		<!-- modal window calculate -->
+		<section>
+			<div id="modal-win" class="hide">
+				<a href="#" class="modal-close"><img src="images/img_close.png" height="30" width="30"></a>
+				<div>
+					<h2>Calculate Life Energy</h2>
+				</div>
+
+				<div id="target">
+					<dl>
+						<dt class="serif">1. 性別について</dt>
+						<dd class="radio-group clearfix">
+							<input type="radio" name="gender" id="q1-1" value="male" /><label for="q1-1">男性</label>
+							<input type="radio" name="gender" id="q1-2" value="female" /><label for="q1-2">女性</label>
+						</dd>
+					</dl>
+					<dl>
+						<dt class="serif"><label for="q2">2. 生年月日を入力してください</label></dt>
+						<dd class="text-area">
+							<input class="form-y" type="text" name="myBy" id="q2" maxlength="4"></input>年
+							<input class="form-m" type="text" name="myBm" id="q2" maxlength="2"></input>月 
+							<input class="form-d" type="text" name="myBd" id="q2" maxlength="2"></input>日
+						</dd>
+					</dl>
+					<dl>
+						<dt class="serif">3. 住んでる場所について</dt>
+						<dd class="radio-group clearfix">
+							<input type="radio" name="place" id="q3-1" value="val1" /><label for="q3-1">人口１万以下の町</label>
+							<input type="radio" name="place" id="q3-2" value="val2" /><label for="q3-2">人口200万以上の都会</label>
+							<input type="radio" name="place" id="q3-3" value="val3" /><label for="q3-3">その他</label>
+						</dd>
+					</dl>
+					<dl>
+						<dt class="serif">4. 大学を卒業している</dt>
+						<dd class="radio-group clearfix">
+							<input type="radio" name="university" id="q4-1" value="yew" /><label for="q4-1">はい</label>
+							<input type="radio" name="university" id="q4-2" value="no" /><label for="q4-2">いいえ</label>
+						</dd>
+					</dl>
+					<dl>
+						<dt class="serif">5. 大学院を卒業している</dt>
+						<dd class="radio-group clearfix">
+							<input type="radio" name="graduate" id="q5-1" value="yes" /><label for="q5-1">はい</label>
+							<input type="radio" name="graduate" id="q5-2" value="no" /><label for="q5-2">いいえ</label>
+						</dd>
+					</dl>
+					<dl>
+						<dt class="serif">6. 年収が700万円以上ある</dt>
+						<dd class="radio-group clearfix">
+							<input type="radio" name="income" id="q6-1" value="yes" /><label for="q6-1">はい</label>
+							<input type="radio" name="income" id="q6-2" value="no" /><label for="q6-2">いいえ</label>
+						</dd>
+					</dl>
+					<dl>
+						<dt class="serif">7. 現在、働いている</dt>
+						<dd class="radio-group clearfix">
+							<input type="radio" name="work" id="q7-1" value="yes" /><label for="q7-1">はい</label>
+							<input type="radio" name="work" id="q7-2" value="no" /><label for="q7-2">いいえ</label>
+						</dd>
+					</dl>
+					<dl>
+						<dt class="serif">8. 亡くなっているいないに関わらず、祖父母のうち１人でも85歳以上まで生きている</dt>
+						<dd class="radio-group clearfix">
+							<input type="radio" name="grand" id="q8-1" value="yes" /><label for="q8-1">はい</label>
+							<input type="radio" name="grand" id="q8-2" value="no" /><label for="q8-2">いいえ</label>
+						</dd>
+					</dl>
+					<dl>
+						<dt class="serif">9. 亡くなっているいないに関わらず、祖父母が４人とも80歳以上まで生きている</dt>
+						<dd class="radio-group clearfix">
+							<input type="radio" name="grand2" id="q9-1" value="yes" /><label for="q9-1">はい</label>
+							<input type="radio" name="grand2" id="q9-2" value="no" /><label for="q9-2">いいえ</label>
+						</dd>
+					</dl>
+					<dl>
+						<dt class="serif">10. 両親のどちらかが50歳未満で心臓病か脳卒中で亡くなっている</dt>
+						<dd class="radio-group clearfix">
+							<input type="radio" name="parent" id="q10-1" value="yes" /><label for="q10-1">はい</label>
+							<input type="radio" name="parent" id="q10-2" value="no" /><label for="q10-2">いいえ</label>
+						</dd>
+					</dl>
+					<dl>
+						<dt class="serif">11. 誰かと同居している</dt>
+						<dd class="radio-group clearfix">
+							<input type="radio" name="live" id="q11-1" value="yes" /><label for="q11-1">はい</label>
+							<input type="radio" name="live" id="q11-2" value="no" /><label for="q11-2">いいえ</label>
+						</dd>
+					</dl>
+					<dl>
+						<dt class="serif">12. 一人暮らしの期間</dt>
+						<dd class="radio-group clearfix">
+							<input type="radio" name="alone" id="q12-1" value="val1" /><label for="q12-1">10年以上</label>
+							<input type="radio" name="alone" id="q12-2" value="val2" /><label for="q12-2">20年以上</label>
+							<input type="radio" name="alone" id="q12-3" value="val3" /><label for="q12-3">30年以上</label>
+							<input type="radio" name="alone" id="q12-4" value="val4" /><label for="q12-4">その他</label>
+						</dd>
+					</dl>
+					<dl>
+						<dt class="serif">13. 働き方について</dt>
+						<dd class="radio-group clearfix">
+							<input type="radio" name="work2" id="q13-1" value="val1" /><label for="q13-1">身体を動かす仕事</label>
+							<input type="radio" name="work2" id="q13-2" value="val2" /><label for="q13-2">よく動く専業主婦</label>
+							<input type="radio" name="work2" id="q13-3" value="val3" /><label for="q13-3">デスクワーク</label>
+							<input type="radio" name="work2" id="q13-4" value="val4" /><label for="q13-4">その他</label>
+						</dd>
+					</dl>
+					<dl>
+						<dt class="serif">14. １日30分以上の運動を</dt>
+						<dd class="radio-group clearfix">
+							<input type="radio" name="exercise" id="q14-1" value="val1" /><label for="q14-1">週５回以上</label>
+							<input type="radio" name="exercise" id="q14-2" value="val2" /><label for="q14-2">週２〜４回</label>
+							<input type="radio" name="exercise" id="q14-3" value="val3" /><label for="q14-3">週１回以下</label>
+						</dd>
+					</dl>
+					<dl>
+						<dt class="serif">15. １日10時間以上寝ている</dt>
+						<dd class="radio-group clearfix">
+							<input type="radio" name="sleep" id="q15-1" value="yes" /><label for="q15-1">はい</label>
+							<input type="radio" name="sleep" id="q15-2" value="no" /><label for="q15-2">いいえ</label>
+						</dd>
+					</dl>
+					<dl>
+						<dt class="serif">16. いま、自分は幸せだと感じている</dt>
+						<dd class="radio-group clearfix">
+							<input type="radio" name="happy" id="q16-1" value="yes" /><label for="q16-1">はい</label>
+							<input type="radio" name="happy" id="q16-2" value="no" /><label for="q16-2">いいえ</label>
+						</dd>
+					</dl>
+					<dl>
+						<dt class="serif">17. 自分の性格は</dt>
+						<dd class="radio-group clearfix">
+							<input type="radio" name="personality" id="q17-1" value="val1" /><label for="q17-1">のんびりした方だと思う</label>
+							<input type="radio" name="personality" id="q17-2" value="val2" /><label for="q17-2">怒りやすい方だと思う</label>
+						</dd>
+					</dl>
+					<dl>
+						<dt class="serif">18. １日に吸うタバコの量は（１箱20本で計算）</dt>
+						<dd class="radio-group clearfix">
+							<input type="radio" name="cigarette" id="q18-1" value="val1" /><label for="q18-1">２箱以上</label>
+							<input type="radio" name="cigarette" id="q18-2" value="val2" /><label for="q18-2">１〜２箱</label>
+							<input type="radio" name="cigarette" id="q18-3" value="val3" /><label for="q18-3">１箱未満</label>
+							<input type="radio" name="cigarette" id="q18-4" value="val4" /><label for="q18-4">タバコを吸わない</label>
+						</dd>
+					</dl>
+					<dl>
+						<dt class="serif">19. 毎年健康診断か婦人科検診を受信</dt>
+						<dd class="radio-group clearfix">
+							<input type="radio" name="medical" id="q19-1" value="yes" /><label for="q19-1">はい</label>
+							<input type="radio" name="medical" id="q19-2" value="no" /><label for="q19-2">いいえ</label>
+						</dd>
+					</dl>
+					<dl>
+						<dt class="serif"><label for="q20">20. 身長と体重を入力してください</label></dt>
+						<dd class="text-area">
+							<input class="form-h" type="text" name="myHe" id="q20" maxlength="3"></input>cm 
+							<input class="form-w" type="text" name="myWe" id="q20" maxlength="3"></input>kg
+						</dd>
+					</dl>
+					<div>
+						<button type="submit" id="calLe">LE算出</button>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section>
+			<div id="modal-win2" class="hide">
+				<a href="#" class="modal-close"><img src="images/img_close.png" height="30" width="30"></a>
+				<div>
+					<h2>save your memory</h2>
+				</div>
+
+				<div id="target2">
+					<dl>
+						<dt>to...</dt>
+						<dd class="radio-group2 clearfix">
+							<input type="radio" name="towhom" id="to1" value="to1" /><label for="to1">myself</label>
+							<input type="radio" name="towhom" id="to2" value="to2" /><label for="to2">my friends</label>
+							<input type="radio" name="towhom" id="to3" value="to3" /><label for="to3">my parter</label>
+							<input type="radio" name="towhom" id="to4" value="to4" /><label for="to4">my famly</label>
+							<input type="radio" name="towhom" id="to5" value="to5" /><label for="to5">my child</label>
+							<input type="radio" name="towhom" id="to6" value="to6" /><label for="to6">my dear</label>
+						</dd>
+					</dl>
+					<dl>
+						<dt>choose feeling</dt>
+						<dd class="radio-group2 clearfix">
+							<input type="radio" name="gender" id="feeling1" value="feeling1" /><label for="feeling1">happy</label>
+							<input type="radio" name="gender" id="feeling2" value="feeling2" /><label for="feeling2">angry</label>
+							<input type="radio" name="gender" id="feeling3" value="feeling3" /><label for="feeling3">sad</label>
+							<input type="radio" name="gender" id="feeling4" value="feeling4" /><label for="feeling4">fun</label>
+							<input type="radio" name="gender" id="feeling5" value="feeling5" /><label for="feeling5">lovely</label>
+							<input type="radio" name="gender" id="feeling6" value="feeling6" /><label for="feeling6">calm</label>
+							<input type="radio" name="gender" id="feeling7" value="feeling7" /><label for="feeling7">upset</label>
+							<input type="radio" name="gender" id="feeling8" value="feeling8" /><label for="feeling8">surprised</label>
+						</dd>
+					</dl>
+					<dl>
+						<dt>input your words / limit: 40 words</dt>
+						<dd class="text-area2">
+							<textarea class="form-words" name="mywords" id="mywords" maxlength="40" cols="40" rows="3"></textarea>
+						</dd>
+					</dl>
+					<dl>
+						<dt><label for="chooseimg">choose image</label></dt>
+						<dd>
+							<div>
+								<ul class="chooseimg">
+									<li class="chooseimg-list show-modal3"><i class="nav-icon2 fa fa-facebook-square"></i></li>
+									<li class="chooseimg-list show-modal3"><i class="nav-icon2 fa fa-instagram"></i></li>
+									<li class="chooseimg-list show-modal3"><i class="nav-icon2 fa fa-desktop"></i></li>
+									<span class="select-facebook">from facebook</span>
+									<span class="select-insta">from instagram</span>
+									<span class="select-pc">from your desktop</span>
+								</ul>
+							</div>
+						</dd>
+					</dl>
+					<div>
+						<button type="submit" id="memory" class="show-modal3">記憶を残す</button>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section>
+			<div id="modal-win3">
+				<div class="modal-text serif">
+					<p>Thank you for coming.<br>This site is demo version and doesn't have the function of submitting memory. I'm preparing to support it.</p>
+					<p>ご覧いただきありがとうございます。<br>
+						デモページのため、投稿機能はまだ入っておりません。正式にサービス化するかは未定ですが...お待ちいただけると嬉しいです。</p>
+					</div>
+					<a href="#" class="modal-close"><img src="images/img_close.png" height="30" width="30"></a>
+				</div>
+			</section>
+
+			<!--stage-area-->
+			<div id="stage">
+
+			</div>
+
+			<!--nav-->
+			<nav>
+				<div id="nav">
+					<ul>
+						<li class="nav-list"><i class="nav-icon fa fa-calculator show-modal"></i><span>ライフエナジーを算出する</span></li>
+						<li class="nav-list"><i class="nav-icon fa fa-comments-o show-modal2"></i><span>記憶を保存する</span></li>
+						<li class="nav-list"><a href="http://mymoment.jp/lifememory" target="_blank"><i class="nav-icon fa fa-eye"></i></a><span>記憶を見る</span></li>
+					</ul>
+				</div>
+			</nav>
+
+			<!--寿命日付-->
+			<section>
+				<div id="textYear">
+					<p></p>
+				</div>
+			</section>
+
+			<!--footer-->
+			<footer id="footer">
+				<div class="copyright">
+					<small>© 2015 hitocoma All Rights Reserved</small>
+					<a href="http://www.facebook.com/share.php?u=http://mymoment.jp/lifeenergy" onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;"><span>Share on</span><i class="fa fa-facebook"></i></a>
+				</div>
+			</footer>
+
+		</div>
+		<script src="//use.typekit.net/qmu6thv.js"></script>
+		<script>try{Typekit.load({ async: true });}catch(e){}</script>
+	</body>
+	</html>
