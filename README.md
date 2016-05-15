@@ -4,4 +4,4 @@
 ---
 
 ## Creator
-* Takuto Yoshino
+* Takuto Yoshino(designer)
