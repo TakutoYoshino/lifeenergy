@@ -1,0 +1,185 @@
+/* CSS Document */
+
+/*共通*/
+
+body{
+	font-family:avenia, helvetica, arial, "遊ゴシック", "Yu Gothic", YuGothic, 'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳＰゴシック',sans-serif;
+	color:#333;
+  font-size:14px;
+}
+
+.serif{
+	font-family:"游明朝体", "Yu Mincho", YuMincho, serif;
+}
+
+a,
+a:link,
+a:visited,
+a:active,
+a:hover{
+	color:#333;
+	text-decoration:none;
+}
+
+.clearfix:after{  
+  visibility:hidden;
+  height:0;
+  display: block;
+  font-size: 0;  
+  content: " ";  
+  clear: both;  
+
+} 
+* html .clearfix             { zoom: 1; } 
+*:first-child+html .clearfix { zoom: 1; } 
+
+
+.container-all{
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+#num {
+position: relative;;
+text-align: center;
+margin-top:300px;
+}
+
+.cal{
+	display: block;
+	position: relative;
+	width: 200px;
+	margin: 50px auto;
+}
+
+.cal a{
+display: block;
+text-align: center;
+padding: 10px 20px;
+background: #F0C7C8;
+}
+
+.modalwin1{
+	position: fixed;
+	width: 600px;
+	background-color: #eee;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	padding: 30px;
+}
+
+.modal-wrap{
+	position: relative;
+	background: #222;
+	min-height: 100%;
+	padding: 100px 0;
+}
+
+.modalwin{
+	position: relative;
+	width: 600px;
+	margin: 0 auto;
+	background-color: #eee;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	padding: 30px;
+}
+
+.show{
+	display: block;
+}
+
+.hide{
+	display: none;
+}
+
+.modalwin h1{
+	font-size: 2em;
+	padding: 30px 0;
+}
+
+.modalwin dl{
+	padding: 20px 0;
+}
+
+.modalwin dt{
+	font-size: 1.2em;
+	padding-bottom: 10px;
+}
+
+.radio-group input {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+}
+
+.radio-group label {
+	display: block;
+	float: left;
+    cursor: pointer;
+    padding: 5px 10px;
+    border: solid 1px #aaa;
+    margin-left: -1px;
+    background: #eee;
+    text-align: center;
+    transition: .2s;
+}
+
+.radio-group label:first-of-type{
+	border-radius: 3px 0 0 3px;
+}
+
+.radio-group label:last-of-type{
+	border-radius: 0 3px 3px 0;
+}
+
+.radio-group input:checked+label {
+    color: #fff;
+    background: #C3C3C3;
+}
+
+.text-area input{
+	padding: 3px;
+	border: 1px solid #aaa;
+	background: #fff;
+	color: #666;
+	border-radius: 5px;
+	
+	/* Webkit */
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(#eee),
+        to(#fff)
+        );
+    -webkit-border-radius: 5px;
+    -webkit-box-shadow: 1px 1px 1px #fff;
+     
+/* Firefox */
+    background: -moz-linear-gradient(
+        top,
+        #eee,
+        #fff
+        );
+    -moz-border-radius: 5px;
+    -moz-box-shadow: 1px 1px 1px #fff;
+     
+/* IE */
+    filter:progid:DXImageTransform.Microsoft.gradient
+        (startColorstr=#ffeeeeee,endColorstr=#ffffffff);
+    zoom: 1;
+}
+
+.form-y{
+	width: 40px;
+}
+
+.form-m{
+	width: 25px;
+}
+
+.form-d{
+	width: 25px;
+}

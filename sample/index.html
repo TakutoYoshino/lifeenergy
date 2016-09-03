@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>LEM | レム</title>
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+</head>
+
+<body>
+	<div id="container-wrap">
+
+		<section>
+			<p id="num">消費LE</p>
+		</section>
+
+		<div class="cal">
+			<a class="show-modal" href="#">modal-window</a>
+		</div>
+
+		<!-- modal window -->
+		<div id="modalwin1" class="modalwin1 hide">
+			<h1>life energy 算出</h1>
+			<div id="target1">
+				<dl>
+					<dt>性別について</dt>
+					<dd>
+						<input type="radio" name="gender" id="q1-1" value="val1-1" /><label for="q1-1">男性</label>
+						<input type="radio" name="gender" id="q1-2" value="val1-2" /><label for="q1-2">女性</label>
+					</dd>
+				</dl>
+
+				<button type="submit" id="cal" class="tojiru">LE算出</button>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>
